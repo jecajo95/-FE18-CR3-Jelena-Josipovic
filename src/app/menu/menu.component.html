@@ -1,0 +1,39 @@
+<div class="container my-5 mx-5">
+  <h4 class="text-center my-4">Our Specialties</h4>
+  <hr class="divide my-4" />
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1">
+    <div *ngFor="let food of foods; index as foodId">
+      <div class="card mx-auto my-4">
+        <img src="{{ food.image }}" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{ food.name }}</h5>
+          <p>
+            {{ food.description | slice : 0 : 100 }}
+            <ng-container *ngIf="food.description.length > 100"
+              >...</ng-container
+            >
+          </p>
+        </div>
+        <hr />
+        <div class="ms-2">€ {{ food.price }}</div>
+        <hr />
+        <div *ngIf="food.availability === true">
+          <a
+            class="btn btn-success btn-m ms-2 my-2"
+            routerLink="/food/{{ foodId }}"
+            >Details</a
+          >
+          <button
+            class="btn btn-primary btn-m ms-2 my-2"
+            (click)="addToCart(food)"
+          >
+            Order
+          </button>
+        </div>
+        <div class="text-danger p-3" *ngIf="food.availability === false">
+          This product is not available.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
